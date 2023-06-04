@@ -1,0 +1,30 @@
+html,
+body {
+  display: flex;
+  margin: 0;
+  overscroll-behavior: none;
+  font-family: sans-serif;
+  background: #16181b;
+}
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 10rem;
+  padding: 1rem;
+  background: #0006;
+  color: #888;
+  border-radius: 0.2rem;
+}
+
+.settings input {
+  margin-block: 0.3rem 0.7rem;
+}
+
+#fps {
+  opacity: 0.5;
+  font-size: 0.8rem;
+}

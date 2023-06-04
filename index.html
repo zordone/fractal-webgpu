@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>3D Fractal Renderer</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="settings">
+      <label>Zoom:</label>
+      <input
+        type="range"
+        id="paramZoom"
+        min="0"
+        max="1"
+        step="0.001"
+        value="0"
+      />
+      <label>Blob:</label>
+      <input
+        type="range"
+        id="paramBlob"
+        min="0"
+        max="1"
+        step="0.001"
+        value="0"
+      />
+      <label>Spike:</label>
+      <input
+        type="range"
+        id="paramSpike"
+        min="0"
+        max="1"
+        step="0.001"
+        value="0"
+      />
+      <label>Color:</label>
+      <input
+        type="range"
+        id="paramColor"
+        min="0"
+        max="1"
+        step="0.001"
+        value="0.04"
+      />
+      <span id="fps"></span>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/3.4.2/gl-matrix-min.min.js"
+      integrity="sha512-cR3oS5mKRWD+38vYi1CNJk1DLpi104ovuQBuVv9p7nNxeqzSNiHzlboK2BZQybmpTi1QNnQ5unYajpURcMjeZQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="main.js" type="module"></script>
+  </body>
+</html>
