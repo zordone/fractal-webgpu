@@ -16,9 +16,9 @@ struct Uniforms {
     blob: f32,
     // ---
     spike: f32,
+    detail: f32,
     temp1: f32,
     temp2: f32,
-    temp3: f32,
     // ---
     color: vec3<f32>,
 };
@@ -80,7 +80,7 @@ fn ambientOcclusion(point: vec3<f32>, normal: vec3<f32>, power: f32) -> f32 {
 // perform ray marching to find intersection
 fn rayMarching(rayOrigin: vec3<f32>, rayDirection: vec3<f32>, lightPosition: vec3<f32>, power: f32) -> vec4<f32> {
   let maxSteps = 65; // max iterations
-  let epsilon = 0.0035; // distance smaller than this is considered a hit
+  let epsilon = uniforms.detail; // distance smaller than this is considered a hit
   let baseColor = uniforms.color;
   // march!
   var length = 0.0;
@@ -94,14 +94,15 @@ fn rayMarching(rayOrigin: vec3<f32>, rayDirection: vec3<f32>, lightPosition: vec
       let lightDir: vec3<f32> = normalize(lightPosition - point);        
       // compute components
       let lightDot = dot(normal, lightDir);
-      let global = 0.80 * baseColor;
-      let ao = 0.85 * ambientOcclusion(point, normal, power) * baseColor;
-      let diffuse = max(lightDot, 0) * baseColor;
+      let globalColor = 0.80 * baseColor;
+      let aoColor = 0.85 * ambientOcclusion(point, normal, power) * baseColor;
+      let diffuseColor = max(lightDot, 0) * baseColor;
       let specularSmooth = 0.93;
-      let specularAmount = 0.4;
+      let specularAmount = 0.9;
       let specularColor = vec3<f32>(1, 1, 1);
-      let specular = max(lightDot - specularSmooth, 0) * (1 / (1-specularSmooth) * specularAmount) * specularColor;
-      return vec4<f32>(global + diffuse - ao + specular, 1);
+      let specularMix = max(lightDot - specularSmooth, 0) / (1.0 - specularSmooth) * specularAmount;
+      let sumColor = vec3<f32>(globalColor + diffuseColor - aoColor);
+      return vec4<f32>(mix(sumColor, specularColor, specularMix), 1);
     }
     length += distance;
   }
@@ -135,8 +136,8 @@ fn vs_main(@builtin(vertex_index) vertexIndex : u32) -> Interpolators {
   let pClip = vec4<f32>(vertex, 0, 1);
   // current vertex in camera space
   let pCamera = vec4<f32>(
-    vertex.x * tanFov * aspectRatio + (pixelCenterOffset / uniforms.imageWidth),
-    vertex.y * tanFov               + (pixelCenterOffset / uniforms.imageHeight),
+    (pixelCenterOffset / uniforms.imageWidth ) + vertex.x * tanFov * aspectRatio,
+    (pixelCenterOffset / uniforms.imageHeight) + vertex.y * tanFov,
     imagePlaneZ, 
     1.0
   );

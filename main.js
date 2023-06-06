@@ -15,6 +15,7 @@ const uiParams = {
   blob: document.querySelector("#paramBlob"),
   spike: document.querySelector("#paramSpike"),
   color: document.querySelector("#paramColor"),
+  detail: document.querySelector("#paramDetail"),
 };
 
 // convert 0..1 hue to rgb with fixed saturation and lightness
@@ -117,9 +118,9 @@ async function main() {
       uiParams.blob.value,
       // ---
       uiParams.spike.value,
+      -uiParams.detail.value,
       0, // temp1,
       0, // temp2,
-      0, // temp3,
       // ---
       ...hueToColor(uiParams.color.value),
     ]);
