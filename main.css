@@ -1,0 +1,20 @@
+html,
+body {
+  overscroll-behavior: none;
+  font-family: sans-serif;
+  background: #16181b;
+  color: #888;
+}
+
+a {
+  color: #4dc7f8;
+}
+
+a:visited {
+  color: #c14df8;
+}
+
+li {
+  line-height: 1.6;
+  font-size: 1.1rem;
+}

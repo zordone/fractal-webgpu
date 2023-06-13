@@ -1,10 +1,6 @@
-html,
 body {
   display: flex;
   margin: 0;
-  overscroll-behavior: none;
-  font-family: sans-serif;
-  background: #16181b;
 }
 
 .settings {
@@ -16,7 +12,6 @@ body {
   width: 10rem;
   padding: 1rem;
   background: #0006;
-  color: #888;
   border-radius: 0.2rem;
 }
 
